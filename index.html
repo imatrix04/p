@@ -5,27 +5,16 @@
     <title>qui est le meilleur ?</title>
 </head>
 <body>
-    <form>
-        <input type="texte" id="Moninput1">
-        <input type="texte" id="Moninput2">
-        <input type="button" value="envoyer" id="button1">
-        <div id="testa"></div>
-    </form>
-    <pre>
   <form>
     <label for="choix">Choisissez une option :</label>
     <select id="choix" name="choix">
-      <option value="option1"><div id="testa"></div></option>
       <!-- Ajoutez autant d'options que nécessaire -->
     </select>
-    <input type="submit" value="Valider">
+    <input type="submit" value="Valider" id="button1">
   </form>
-
-    </pre>
-
 </body>
-<script src='main.js'>
-
+<script src='main.js'></script>
+<script>
 var button = document.getElementById('button1');
 
 // Cachez le bouton immédiatement lors du chargement de la page

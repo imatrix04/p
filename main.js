@@ -59,27 +59,15 @@ fetch(apiUrl)
         return response.json(); // Convertit la réponse en format JSON
     })
     .then(data => {
-        // Manipulez les données de la réponse ici
-        let div = document.getElementById("testa");
-        // Obtenez la référence de la table HTML
-        var table = document.createElement("table");
-        table.id = "personnage";
+        let select = document.getElementById("choix"); // Récupérer le menu déroulant
 
-
-        // Parcourez les données JSON et créez les lignes du tableau
-        for (var i = 0; i < data.length; i++) {
-            var row = table.insertRow(i + 0); // +1 pour éviter l'en-tête
-            var cell1 = row.insertCell(0);
-
-
-            // Remplissez les cellules avec les données JSON
-            cell1.innerHTML = data[i].nom;
- 
-        }
-
-        div.appendChild(table);
-        //div.innerHTML= data.temperature + ' '  + data.unit;
-        console.log(data);
+        // Parcourir les données et ajouter des options au menu déroulant
+        data.forEach(item => {
+            let option = document.createElement("option");
+            option.value = item.nom;
+            option.text = item.nom;
+            select.appendChild(option);
+        });
     })
     .catch(error => {
         // Gestion des erreurs ici
