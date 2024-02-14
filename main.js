@@ -29,13 +29,6 @@ function appelApi(lelLgin) {
                 console.log('Réponse de l\'API :', responseData);
                 var tableau = document.getElementById("personnage");
 
-                // Créer une nouvelle ligne
-                var nouvelleLigne = tableau.insertRow();
-
-                // Créer trois cellules dans la nouvelle ligne
-        
-                nouvelleLigne.insertCell(0).innerHTML = responseData.nom;
-
 
             } else {
                 console.log('Réponse de l\'API :', "Insert Ko");
@@ -60,13 +53,18 @@ fetch(apiUrl)
     })
     .then(data => {
         let select = document.getElementById("choix"); // Récupérer le menu déroulant
+        let select2 = document.getElementById("choix2"); // Récupérer le menu déroulant
 
         // Parcourir les données et ajouter des options au menu déroulant
         data.forEach(item => {
             let option = document.createElement("option");
+            let option2 = document.createElement("option");
             option.value = item.nom;
             option.text = item.nom;
+            option2.value = item.nom;
+            option2.text = item.nom;
             select.appendChild(option);
+            select2.appendChild(option2);
         });
     })
     .catch(error => {
