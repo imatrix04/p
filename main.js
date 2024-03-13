@@ -56,6 +56,9 @@ async function fetchData() {
 document.getElementById('button1').addEventListener('click', function (event) {
     event.preventDefault(); // Empêche le formulaire de se soumettre
 
+    document.getElementById('carte1').classList.remove('hidden');
+    document.getElementById('carte2').classList.remove('hidden');
+
     let select1Value = document.getElementById('choix').value;
     let select2Value = document.getElementById('choix2').value;
     let select3Value = document.getElementById('choix').options[document.getElementById('choix').selectedIndex].getAttribute('forcex');
