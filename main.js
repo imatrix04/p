@@ -1,30 +1,29 @@
-document.getElementById('button1').addEventListener('click', function (event) {
-    event.preventDefault(); // Empêche le formulaire de se soumettre
-
-    let select1Value = document.getElementById('choix').value;
-    let select2Value = document.getElementById('choix2').value;
-    afficherResultat(select1Value, select2Value);
-});
-
-function afficherResultat(value1, value2) {
-    document.getElementById('name1').textContent = value1;
-    document.getElementById('name2').textContent = value2;
+// Fonction pour récupérer les données de l'API uniquement si l'utilisateur est connecté
+async function fetchDataIfLoggedIn() {
+    const token = localStorage.getItem('token'); // Récupérer le token JWT depuis le stockage local
+    if (token) {
+        await fetchData(); // Appeler fetchData uniquement si un token est présent
+    }
 }
 
-// URL de l'API que vous souhaitez interroger
-const apiUrl = `http://192.168.64.194:3000`;
+// Appeler la fonction fetchDataIfLoggedIn lorsque le DOM est entièrement chargé
+document.addEventListener('DOMContentLoaded', fetchDataIfLoggedIn);
 
-// Utilisation de fetch() pour effectuer une requête GET
-fetch(apiUrl)
-    .then(response => {
+// Fonction pour récupérer les données de l'API
+async function fetchData() {
+    try {
+        const apiUrl = `http://192.168.64.194:3000`;
+        const response = await fetch(apiUrl);
         if (!response.ok) {
             throw new Error('La requête a échoué');
         }
-        return response.json(); // Convertit la réponse en format JSON
-    })
-    .then(data => {
+        const data = await response.json();
         let select = document.getElementById("choix"); // Récupérer le menu déroulant
         let select2 = document.getElementById("choix2"); // Récupérer le menu déroulant
+
+        // Effacer les options existantes
+        select.innerHTML = '';
+        select2.innerHTML = '';
 
         // Parcourir les données et ajouter des options au menu déroulant
         data.forEach(item => {
@@ -37,60 +36,22 @@ fetch(apiUrl)
             select.appendChild(option);
             select2.appendChild(option2);
         });
-    })
-    .catch(error => {
+    } catch (error) {
         // Gestion des erreurs ici
-        console.error('Erreur:', error);
-    });
-
-document.getElementById('registerBtn').addEventListener('click', function() {
-    document.getElementById('registerForm').classList.remove('hidden');
-});
-
-document.getElementById('loginBtn').addEventListener('click', function() {
-    document.getElementById('loginForm').classList.remove('hidden');
-});
-
-document.getElementById('registerForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const email = formData.get('email');
-    const password = formData.get('password');
-
-    try {
-        const response = await fetch('http://192.168.64.194:3000/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
-        alert(data.message);
-    } catch (error) {
-        console.error('Error:', error);
+        console.error('Erreur lors de la récupération des données de l\'API:', error);
     }
+}
+
+// Code existant pour afficher les résultats et empêcher la soumission du formulaire
+document.getElementById('button1').addEventListener('click', function (event) {
+    event.preventDefault(); // Empêche le formulaire de se soumettre
+
+    let select1Value = document.getElementById('choix').value;
+    let select2Value = document.getElementById('choix2').value;
+    afficherResultat(select1Value, select2Value);
 });
 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const email = formData.get('email');
-    const password = formData.get('password');
-
-    try {
-        const response = await fetch('http://192.168.64.194:3000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
-        alert(data.message);
-    } catch (error) {
-        console.error('Error:', error);
-    }
-});
+function afficherResultat(value1, value2) {
+    document.getElementById('name1').textContent = value1;
+    document.getElementById('name2').textContent = value2;
+}
