@@ -1,36 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html id="container">
 <head>
     <meta charset='utf-8'>
-    <title>qui est le meilleur ?</title>
+    <title>Qui est le meilleur ?</title>
     <link rel="stylesheet" href="main.css">
 </head>
+<header>
+  <form action="inscription_connexion.html">
+    <input type="submit" value="Connexion/Inscription" class="buttonform">
+</form>
+
+</header>
 <body>
-  <form>
-    <label for="choix">Choisissez le premier personnage :</label>
-    <select id="choix" name="choix">
-      <!-- Ajoutez autant d'options que nécessaire -->
-    </select>
-    <label for="choix2">choississez le deuxième personnage :</label>
-    <select id="choix2" name="choix">
+  <div>
+    <form>
+      <label for="choix">Choisissez le premier personnage: </label>
+      <select id="choix" name="choix">
         <!-- Ajoutez autant d'options que nécessaire -->
-    </select>
-    <input type="submit" value="Valider" id="button1">
-  </form>
+      </select>
+      <label for="choixA1">Choisissez un accessoire: </label>
+      <select id="choixA1" name="choixA">
 
-  <div id="carte1">
-    <h2 id="name1"></h2>
-    <h3>Force</h3>
-    <p id="force1"></p>
-  </div>
+      </select>
+      <br>
+      <label for="choix2">Choississez le deuxième personnage: </label>
+      <select id="choix2" name="choix">
+        <!-- Ajoutez autant d'options que nécessaire -->
+      </select>
+      <input type="submit" value="Valider" id="button1">
+    </form>
+  
 
-  <div id="carte2">
-    <h2 id="name2"></h2>
-    <h3>Force</h3>
-    <p id="force2"></p>
+    <div id="carte1">
+      <h2 id="name1"></h2>
+      <h3 id="spécific1">Force</h3>
+      <p id="force1"></p>
+      <h3 id="spécific2">Vitesse</h3>
+      <p id="vitesse1"></p>
+      <h3 id="spécific2">Défense</h3>
+      <p id="defense1"></p>
+    </div>
+  
+    <div id="carte2">
+      <h2 id="name2"></h2>
+      <h3 id="spécific2">Force</h3>
+      <p id="force2"></p>
+      <h3 id="spécific2">Vitesse</h3>
+      <p id="vitesse2"></p>
+      <h3 id="spécific2">Défense</h3>
+      <p id="defense2"></p>
+    </div>
   </div>
-  </div>
-<a href="inscription_connexion.html">test</a>
 </body>
 <script src='main.js'></script>
 <script>

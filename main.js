@@ -32,9 +32,13 @@ async function fetchData() {
             option.value = item.nom;
             option.text = item.nom;
             option.setAttribute('forcex', item.force); // Ajouter un attribut forcex à l'option
+            option.setAttribute('vitessex', item.vitesse);
+            option.setAttribute('defensex', item.defense);
             option2.value = item.nom;
             option2.text = item.nom;
-            option2.setAttribute('forcex2', item.force); // Ajouter un attribut forcex2 à l'option
+            option2.setAttribute('forcex2', item.force);  // Ajouter un attribut forcex2 à l'option
+            option2.setAttribute('vitessex2', item.vitesse);
+            option2.setAttribute('defensex2', item.defense);
             select.appendChild(option);
             select2.appendChild(option2);
         });
@@ -52,14 +56,22 @@ document.getElementById('button1').addEventListener('click', function (event) {
     let select2Value = document.getElementById('choix2').value;
     let select3Value = document.getElementById('choix').options[document.getElementById('choix').selectedIndex].getAttribute('forcex');
     let select4Value = document.getElementById('choix2').options[document.getElementById('choix2').selectedIndex].getAttribute('forcex2');
-    afficherResultat(select1Value, select2Value, select3Value, select4Value);
+    let select5Value = document.getElementById('choix').options[document.getElementById('choix').selectedIndex].getAttribute('vitessex');
+    let select6Value = document.getElementById('choix2').options[document.getElementById('choix2').selectedIndex].getAttribute('vitessex2');
+    let select7Value = document.getElementById('choix').options[document.getElementById('choix').selectedIndex].getAttribute('defensex');
+    let select8Value = document.getElementById('choix2').options[document.getElementById('choix2').selectedIndex].getAttribute('defensex2');
+    afficherResultat(select1Value, select2Value, select3Value, select4Value, select5Value, select6Value, select7Value, select8Value);
 });
 
-function afficherResultat(value1, value2, value3, value4) {
+function afficherResultat(value1, value2, value3, value4, value5, value6, value7, value8) {
     document.getElementById('name1').textContent = value1;
     document.getElementById('name2').textContent = value2;
     document.getElementById('force1').textContent = value3;
     document.getElementById('force2').textContent = value4;
+    document.getElementById('vitesse1').textContent = value5;
+    document.getElementById('vitesse2').textContent = value6;
+    document.getElementById('defense1').textContent = value7;
+    document.getElementById('defense2').textContent = value8;
     
 // Appeler la fonction pour récupérer les données des personnages à chaque fois que le bouton est cliqué
 }
