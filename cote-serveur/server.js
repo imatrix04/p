@@ -49,40 +49,35 @@ function verifyToken(req, res, next) {
 // Route d'exemple
 app.get('/', async (req, res) => {
   try {
-    const results = await query('SELECT * FROM perso');
-    const results2 = await query('SELECT * FROM Accessoires');
-    
-    const users = results.map(user => {
-      const userObj = {};
-      for (const key in user) {
-          if (Object.prototype.hasOwnProperty.call(user, key)) {
-              userObj[key] = user[key];
-          }
-      }
-      return userObj;
-  });
-    
-  const accessories = results2.map(accessory => {
-    const accessoryObj = {};
-    for (const key in accessory) {
-        if (Object.prototype.hasOwnProperty.call(accessory, key)) {
-            accessoryObj[key] = accessory[key];
-        }
-    }
-    return accessoryObj;
-});
-    
-    const resultsTotal = {
-        users: users,
-        accessories: accessories
-    };
-    
-    res.json(resultsTotal);
+      const users = await fetchDataFromTable('perso');
+      const accessories = await fetchDataFromTable('Accessoires');
+
+      const resultsTotal = {
+          users: users,
+          accessories: accessories
+      };
+
+      res.json(resultsTotal);
   } catch (err) {
-    console.error('Erreur lors de l\'exécution de la requête MySQL:', err);
-    res.status(500).send('Erreur lors de la requête SQL');
+      console.error('Erreur lors de l\'exécution de la requête MySQL:', err);
+      res.status(500).send('Erreur lors de la requête SQL');
   }
 });
+
+async function fetchDataFromTable(tableName) {
+  const results = await query(`SELECT * FROM ${tableName}`);
+  return results.map(item => transformResultToObject(item));
+}
+
+function transformResultToObject(item) {
+  const obj = {};
+  for (const key in item) {
+      if (Object.prototype.hasOwnProperty.call(item, key)) {
+          obj[key] = item[key];
+      }
+  }
+  return obj;
+}
 
 // Inscription
 app.post("/register", async (req, res) => {
